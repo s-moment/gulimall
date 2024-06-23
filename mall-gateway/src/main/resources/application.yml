@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.89.192.200:8848 # nacos注册
+  application:
+    name: mall-gateway
+
+server:
+  port: 88
