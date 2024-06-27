@@ -1,6 +1,8 @@
 package com.bsl.mall.product.service.impl;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -22,8 +24,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 new Query<CategoryEntity>().getPage(params),
                 new QueryWrapper<CategoryEntity>()
         );
-
         return new PageUtils(page);
+    }
+
+    /**
+     * 查出所有产品分类以及子分类，以树形结构组装起来
+     * @return
+     */
+    @Override
+    public List<CategoryEntity> listWithTree() {
+        return null;
     }
 
 }
