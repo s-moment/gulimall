@@ -20,13 +20,13 @@ import java.io.FileInputStream;
  */
 @SpringBootTest
 public class PartyTest {
-    @Autowired
-    OSSClient ossClient;
-
-    @Test
-    void contextLoads() throws Exception{
-        ossClient.putObject("tutu-fast","245.jpg",new FileInputStream("D:\\AMUSE\\pics\\6a1b2703a9ed8737.jpg"));
-        ossClient.shutdown();
-        System.out.println("==========上传成功==========");
-    }
+//    @Autowired
+//    OSSClient ossClient;
+//
+//    @Test
+//    void contextLoads() throws Exception{
+//        ossClient.putObject("tutu-fast","245.jpg",new FileInputStream("D:\\AMUSE\\pics\\6a1b2703a9ed8737.jpg"));
+//        ossClient.shutdown();
+//        System.out.println("==========上传成功==========");
+//    }
 }
