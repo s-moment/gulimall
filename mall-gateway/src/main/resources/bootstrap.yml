@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: mall-gateway  # 服务名称
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.89.192.200:8848 # nacos注册中心地址
+        namespace: b314f410-248e-4960-81c4-5a3911349a26 # 命名空间
+
+      config:
+        server-addr: 121.89.192.200:8848 # nacos注册
+        namespace: 9a155304-1eb9-48fe-a0f4-922bfc5b39fa
+        file-extension: yaml
+        refresh-enabled: true #配置动态刷新
+
+
+    gateway:
+      globalcors:
+#        add-to-simple-url-handler-mapping: true # 解决options请求被拦截问题
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: # 允许的跨域ajax的请求方式
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+              - "HEAD"
+              - "PATCH"
+            allowedHeaders: "*"  # 允许在请求中携带的头信息
+            allowCredentials: true # 允许在请求中携带cookie
+            maxAge: 360000    # 本次跨域检测的有效期(单位毫秒)
+            # 有效期内，跨域请求不会一直发option请求去增大服务器压力
+
+

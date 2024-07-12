@@ -3,6 +3,7 @@ package com.bsl.mall.product.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,6 @@ import com.bsl.mall.product.entity.CategoryEntity;
 import com.bsl.mall.product.service.CategoryService;
 import com.bsl.common.utils.PageUtils;
 import com.bsl.common.utils.R;
-
 
 
 /**
@@ -35,21 +35,21 @@ public class CategoryController {
      * 查出所有分类以及子分类，以树形结构组装起来
      */
     @RequestMapping("/list/tree")
-    public R list(){
+    public R list() {
         List<CategoryEntity> list = categoryService.listWithTree();
-        return R.ok().put("data",list);
+        return R.ok().put("data", list);
     }
 
 
     /**
-     * 信息
+     * 修改前查询
      */
     @RequestMapping("/info/{catId}")
     //@RequiresPermissions("product:category:info")
-    public R info(@PathVariable("catId") Long catId){
-		CategoryEntity category = categoryService.getById(catId);
+    public R info(@PathVariable("catId") Long catId) {
+        CategoryEntity category = categoryService.getById(catId);
 
-        return R.ok().put("category", category);
+        return R.ok().put("data", category);
     }
 
     /**
@@ -57,8 +57,8 @@ public class CategoryController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:category:save")
-    public R save(@RequestBody CategoryEntity category){
-		categoryService.save(category);
+    public R save(@RequestBody CategoryEntity category) {
+        categoryService.save(category);
 
         return R.ok();
     }
@@ -68,9 +68,8 @@ public class CategoryController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:category:update")
-    public R update(@RequestBody CategoryEntity category){
-		categoryService.updateById(category);
-
+    public R update(@RequestBody CategoryEntity category) {
+        categoryService.updateCascade(category);
         return R.ok();
     }
 
@@ -79,9 +78,20 @@ public class CategoryController {
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("product:category:delete")
-    public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
+    public R delete(@RequestBody Long[] catIds) {
 
+        categoryService.removeMenuByIds(Arrays.asList(catIds));
+
+        return R.ok();
+    }
+
+    /**
+     * 修改排序
+     */
+    @RequestMapping("/update/sort")
+    //@RequiresPermissions("product:category:update")
+    public R updateSort(@RequestBody CategoryEntity[] category) {
+        categoryService.updateBatchById(Arrays.asList(category));
         return R.ok();
     }
 

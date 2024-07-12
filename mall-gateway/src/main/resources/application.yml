@@ -1,10 +1,42 @@
-spring:
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 121.89.192.200:8848 # nacos注册
-  application:
-    name: mall-gateway
-
 server:
   port: 88
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://mall-product
+          predicates:
+            - Path=/api/product/**    # 判断路径
+          filters:
+            - RewritePath=/api/(?<segment>.*), /$\{segment} #去掉api前缀，剩余的全部保留
+
+        - id: third_party_route
+          uri: lb://mall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+
+        - id: member_route
+          uri: lb://mall-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: ware_route
+          uri: lb://mall-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates: #路由断言
+            - Path=/api/**
+          filters: #路径重写
+            - RewritePath=/api/(?<segment>.*), /renren-fast/$\{segment}
+
+

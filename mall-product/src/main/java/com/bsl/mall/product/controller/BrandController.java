@@ -15,6 +15,7 @@ import com.bsl.mall.product.service.BrandService;
 import com.bsl.common.utils.PageUtils;
 import com.bsl.common.utils.R;
 
+import javax.validation.Valid;
 
 
 /**
@@ -58,7 +59,7 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public R save(@Valid @RequestBody BrandEntity brand){
 		brandService.save(brand);
 
         return R.ok();
@@ -70,7 +71,16 @@ public class BrandController {
     @RequestMapping("/update")
     //@RequiresPermissions("product:brand:update")
     public R update(@RequestBody BrandEntity brand){
-		brandService.updateById(brand);
+        brandService.updateDetail(brand);
+        return R.ok();
+    }
+    /**
+     * 修改状态
+     */
+    @RequestMapping("/update/status")
+    //@RequiresPermissions("product:brand:update")
+    public R updateStatus(@RequestBody BrandEntity brand){
+        brandService.updateById(brand);
 
         return R.ok();
     }

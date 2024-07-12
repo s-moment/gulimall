@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: mall-member
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.89.192.200:8848 # nacos注册
+        namespace: b314f410-248e-4960-81c4-5a3911349a26 # 命名空间
+
+      config:
+        server-addr: 121.89.192.200:8848 # nacos配置中心
+        namespace: e4fb3503-352f-42c2-aba6-f885ff292be6 # 命名空间
+        file-extension: yaml
+        refresh-enabled: true #配置动态刷新

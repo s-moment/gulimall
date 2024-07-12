@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: mall-third-party  # 服务名称
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config: # 服务配置
+        server-addr: 121.89.192.200:8848 # nacos配置中心地址
+        namespace: a13d13d1-ea5f-4a54-9a06-a51af8618918 # 命名空间
+        file-extension: yaml  #拉取文件的格式
+        refresh-enabled: true
+        ext-config:
+          - data-id: oss.yml
+            group: DEFAULT_GROUP
+            refresh: true
+
+      discovery:
+        server-addr: 121.89.192.200:8848 # nacos注册中心地址
+        namespace: b314f410-248e-4960-81c4-5a3911349a26 # 命名空间

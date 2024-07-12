@@ -50,7 +50,7 @@ public class CouponController {
     public R info(@PathVariable("id") Long id){
 		CouponEntity coupon = couponService.getById(id);
 
-        return R.ok().put("coupon", coupon);
+        return R.ok().put("mapper/coupon", coupon);
     }
 
     /**
